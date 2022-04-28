@@ -95,8 +95,71 @@ export const CoinPage = () => {
   if (!coin) return <LinearProgress style={{ backgroundColor:"gold" }} />
 
   return(
-    <div>
-      ...
-    </div>
+    <section className={classes.container}>
+      <div className={classes.sidebar}>
+        {/* Image, name e description */}
+        <img
+          src={coin?.image.large}
+          alt={coin.name}
+          height={200}
+          style={{ marginBottom: 20 }}
+        />
+        <Typography variant="h3" className={classes.heading}>
+          {coin?.name}
+        </Typography>
+        <Typography variant="subtitle1" className={classes.description}>
+          {coin?.description.en.split(". ")[0].replace(/<[^>]*>/, "")}
+        </Typography>
+        {/* Rank, Current Price e Market Cap */}
+        <div className={classes.marketData}>
+          <span style={{ display: "flex" }}>
+            <Typography variant="h5" className={classes.heading}>
+              Rank:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h5" style={{ fontWeight: 500 }}>
+              {numberWithCommas(coin?.market_cap_rank)}
+            </Typography>
+          </span>
+          <span style={{ display: "flex" }}>
+            <Typography variant="h5" className={classes.heading}>
+              Preço Atual:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h5" style={{ fontWeight: 500 }}>
+              {symbol}{" "}
+              {numberWithCommas(coin?.market_data.current_price[currency.toLowerCase()])}
+            </Typography>
+          </span>
+          <span style={{ display: "flex" }}>
+            <Typography variant="h5" className={classes.heading}>
+              Market Cap:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h5" style={{ fontWeight: 500 }}>
+              {symbol}{" "}
+              {numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()]
+                .toString().slice(0, -6)
+              )}
+            </Typography>
+          </span>
+          {user && (
+            <Button
+              variant="contained"
+              style={{
+                width: "100%",
+                height: 40,
+                backgroundColor: inWatchlist ? "#FF0000" : "#EEBC1D"
+              }}
+                onClick={ inWatchlist ? removeFromWatchlist : addToWatchlist }
+              >
+                { inWatchlist ? "Remover da minha lista" : "Adicionar na minha lista" }
+            </Button>
+          )}
+        </div>
+      </div>
+      {/* Chart js */}
+      <CoinInfo coin={coin} />
+    </section>
   )
 }
