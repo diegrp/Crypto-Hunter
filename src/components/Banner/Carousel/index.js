@@ -85,8 +85,18 @@ export const Carousel = () => {
   };
 
   return(
-    <div>
-      ...
-    </div>
+    <div className={classes.carousel}>
+      <AliceCarousel
+        mouseTracking
+        infinite
+        autoPlay
+        animationDuration={1500}
+        autoPlayInterval={1000}
+        disableButtonsControls
+        disableDotsControls
+        responsive={responsive}
+        items={items}
+      />
+    </div>  
   )
 }
