@@ -8,8 +8,12 @@ export const SelectButton = ({ onClick, selected, children }) => {
   const classes = useStyles(selected);
   
   return(
-    <div>
-      ...
-    </div>
+    <span
+      onClick={onClick}
+      selected={selected}
+      className={classes.selectbutton}
+    >
+      {children}
+    </span>
   )
 }
