@@ -47,6 +47,31 @@ export const CoinInfo = ({ coin }) => {
     fetchHistoricData();
   },[coin, days, currency]);
 
+  // Data e options, atributos para nosso component Line do chart js
+
+  const data = {
+    labels: historicData.map((coin) => {
+      let date = new Date(coin[0]);
+      let time = date.getHours() > 12 
+      ? `${date.getHours() - 12}:${date.getMinutes()} PM` 
+      : `${date.getHours()}:${date.getMinutes()} AM`
+      return days === 1 ? time : date.toLocaleDateString();
+    }),
+    datasets:[{
+      data: historicData.map((coin) => coin[1]),
+      label: `Preço: ( ${days} ${days > 1 ? "dias" : "dia"} ) em ${currency}`,
+      borderColor: "#EBBC1D"
+    }]
+  };
+
+  const options = {
+    elements:{
+      point:{
+        radius: 1
+      }
+    }
+  };
+
   return(
     <div>
       ...
