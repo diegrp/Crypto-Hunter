@@ -40,6 +40,58 @@ export const CoinPage = () => {
     fetchSingleCoin();
   },[id]);
 
+  const inWatchlist = watchlist.includes(coin?.id);
+
+  const addToWatchlist = async ( ) => {
+
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try{
+
+      await setDoc(coinRef, 
+        { coins: inWatchlist ? [ coin.id ] : [ ...watchlist, coin.id ] }
+      );  
+
+      setAlert({
+        open: true,
+        type: "success",
+        message: `${coin.name}, adicionado em sua lista de favoritos!`
+      });
+    }catch(error){
+      setAlert({
+        open: true,
+        type: "error",
+        message: error.message
+      });
+    }
+  };
+
+  const removeFromWatchlist = async ( ) => {
+    
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try{
+      
+      await setDoc(coinRef, 
+        { coins: watchlist.filter((watch) => watch !== coin.id) },
+        { merge: "true" }
+      );
+
+      setAlert({
+        open: true,
+        type: "success",
+        message: `${coin.name}, removido da sua lista de favoritos!`
+      });
+
+    }catch(error){
+      setAlert({
+        open: true,
+        type: "error",
+        message: error.message
+      });
+    }
+  };
+
   if (!coin) return <LinearProgress style={{ backgroundColor:"gold" }} />
 
   return(
