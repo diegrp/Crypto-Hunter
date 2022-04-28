@@ -17,8 +17,19 @@ export const Alert = () => {
   };
 
   return(
-    <div>
-      ...
-    </div>
+    <Snackbar
+      open={alert.open}
+      autoHideDuration={3000}
+      onClose={handleClose}
+    >
+      <MuiAlert
+        variant="filled"
+        elevation={10}
+        severity={alert.type}
+        onClose={handleClose}
+      >
+        {alert.message}
+      </MuiAlert>
+    </Snackbar>
   )
 }
