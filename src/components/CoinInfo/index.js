@@ -73,8 +73,40 @@ export const CoinInfo = ({ coin }) => {
   };
 
   return(
-    <div>
-      ...
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <div className={classes.container}>
+        {!historicData ? (
+          <CircularProgress
+            style={{
+              color: "gold"
+            }}
+            height={250}
+            thickness={1}
+          />
+        ):(
+          <>
+            <Line data={data} options={options} />
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                marginTop: 20
+              }}
+            >
+              {chartDays.map((day) => (
+                <SelectButton
+                  key={day.value}
+                  onClick={() => setDays(day.value)}
+                  selected={day.value === days}
+                >
+                  {day.label}
+                </SelectButton>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </ThemeProvider>
   )
 }
