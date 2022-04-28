@@ -41,6 +41,26 @@ export const AuthModal = () => {
     setValue(newValue);
   };
 
+  // Authentication via google
+
+  const googleProvider = new GoogleAuthProvider();
+  
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider).then((result) => {
+      setAlert({
+        open: true,
+        type: "success",
+        message: `Logado com sucesso. Bem vindo, ${result.user.email}`
+      });
+    }).catch(error => {
+      setAlert({
+        open: true,
+        type: "error",
+        message: error.message
+      });
+    });
+  };
+
   return (
     <div>
       ...
