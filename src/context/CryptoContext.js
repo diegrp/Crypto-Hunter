@@ -26,8 +26,8 @@ const CryptoContext = ({ children }) => {
   const [ user, setUser ] = useState(null);
   // Mensagem de alerta em MUI
   const [ alert, setAlert ] = useState({
-    open: true,
-    type: "success",
+    open: false,
+    type: "",
     message: ""
   });
   // Lista de cryptomoedas favoritas
